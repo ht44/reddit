@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="/style.css">
+  <title>User Index</title>
+</head>
+<body>
+  <nav>
+    <ul>
+      <a href="/"><li>Home</li></a>
+      <a href="/posts"><li>Posts</li></a>
+      <a href="/users"><li>Users</li></a>
+      <% if (locals.currentUser !== undefined) { %>
+        <a href="/users/<%=currentUser.id%>"><li>My Profile</li></a>
+        <a href="/posts/new"><li>New Post</li></a>
+        <a href="/auth/logout"><li>Logout (<%= currentUser.username %>)</li></a>
+      <% } else { %>
+        <a href="/auth/login"><li>Login</li></a>
+        <a href="/auth/register"><li>Sign Up</li></a>
+      <% } %>
+    </ul>
+  </nav>
+  <h1>User Index</h1>
+
+  <ul>
+    <% results.forEach(result => { %>
+      <li>
+        <a href="/users/<%= result.id %>">
+          <img src="<%= result.img_url %>" alt="<%= result.username %>'s Profile Picture">
+          <%= result.username %>
+        </a>
+      </li>
+    <% }); %>
+  </ul>
+
+</body>
+</html>

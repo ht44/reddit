@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="/style.css">
+  <title>Edit Profile</title>
+</head>
+<body>
+  <nav>
+    <ul>
+      <a href="/"><li>Home</li></a>
+      <a href="/posts"><li>Posts</li></a>
+      <a href="/users"><li>Users</li></a>
+      <% if (locals.currentUser !== undefined) { %>
+        <a href="/users/<%=currentUser.id%>"><li>My Profile</li></a>
+        <a href="/posts/new"><li>New Post</li></a>
+        <a href="/auth/logout"><li>Logout (<%= currentUser.username %>)</li></a>
+      <% } else { %>
+        <a href="/auth/login"><li>Login</li></a>
+        <a href="/auth/register"><li>Sign Up</li></a>
+      <% } %>
+    </ul>
+  </nav>
+  <h1>Got to user edit page</h1>
+  <form class="edit" action="/users/<%=currentUser.id%>?_method=PUT" method="POST">
+    <input type="text" name="user[full_name]" placeholder="Full Name">
+    <input type="text" name="user[username]" placeholder="Username">
+    <input type="text" name="user[img_url]" placeholder="Profile Picture">
+    <input type="submit">
+  </form>
+
+  <form class="delete" action="/users/<%=currentUser.id%>?_method=DELETE" method="POST">
+    <input type="submit" value="Delete Account">
+  </form>
+</body>
+</html>
